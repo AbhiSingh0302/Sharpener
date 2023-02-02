@@ -15,7 +15,7 @@
   </header>
   <div class="container">
    <div id="main" class="card card-body">
-    <h2 class="title">Add Items</h2>
+    <h2 class="title" id="add-item">Add Items</h2>
     <form class="form-inline mb-3">
       <input type="text" class="form-control mr-2">
       <input type="submit" class="btn btn-dark" value="Submit">
@@ -37,6 +37,9 @@
     let header = document.querySelector("header");
     console.log(header);
     header.style.borderBottom = "2px solid black";
+    let addItem = document.querySelector("#add-item");
+    console.log(addItem);
+    addItem.style.fontWeight = "bolder";
   </script>
 </body>
 </html>
