@@ -32,15 +32,18 @@
 
   <script>
     let headerTitle = document.getElementById("header-title");
-    console.log(headerTitle);
+    // console.log(headerTitle);
     headerTitle.style.color = "black"; 
     let header = document.querySelector("header");
-    console.log(header);
+    // console.log(header);
     header.style.borderBottom = "2px solid black";
     let addItem = document.querySelector("#add-item");
-    console.log(addItem);
+    // console.log(addItem);
     addItem.style.fontWeight = "bolder";
     addItem.style.color = "green";
+    let items = document.getElementsByClassName("list-group-item");
+    console.log(items);
+    items[2].style.backgroundColor = "green";
   </script>
 </body>
 </html>
