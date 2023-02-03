@@ -20,6 +20,7 @@
     <h2 class="title">Add Items</h2>
     <form id="addForm" class="form-inline mb-3">
       <input type="text" class="form-control mr-2" id="item">
+      <input type="text" class="form-control mr-2" id="des">
       <input type="submit" class="btn btn-dark" value="Submit">
     </form>
     <h2 class="title">Items</h2>
@@ -34,6 +35,8 @@
   <script>
     let form = document.querySelector("#addForm");
     let input = document.querySelector("#item");
+    let des = document.querySelector("#des");
+    let items = document.getElementById("items");
     form.addEventListener("submit", addItem);
     function addItem(e){
         e.preventDefault();
@@ -45,7 +48,7 @@
         delBtn.className = "btn btn-danger btn-sm float-right delete";
         editBtn.className = "btn btn-danger btn-sm float-right delete mx-2";
         li.className = "list-group-item"
-        li.appendChild(document.createTextNode(input.value))
+        li.appendChild(document.createTextNode(input.value + " " + des.value))
         li.appendChild(delBtn);
         li.appendChild(editBtn);
         document.getElementById("items").appendChild(li);
@@ -56,6 +59,20 @@
         if(e.target.classList.contains("delete")){
             e.target.parentElement.remove();
         }
+    }
+    document.getElementById("filter").addEventListener("keyup",search);
+    function search(e){
+      let text = e.target.value.toLowerCase();
+      // console.log(text);
+      let li = document.querySelectorAll("li");
+      li.forEach(el=>{
+        let eltext = el.textContent.toLowerCase();
+        if(eltext.indexOf(text) == -1){
+          el.style.display = "none";
+        }else{
+          el.style.display = "block"
+        }
+      })
     }
   </script>
 </body>
