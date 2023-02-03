@@ -26,40 +26,53 @@
       <li class="list-group-item">Item 2</li>
       <li class="list-group-item">Item 3</li>
       <li class="list-group-item">Item 4</li>
-      <li>new item</li>
     </ul>
+    <span></span>
    </div>
   </div>
 
   <script>
-    // let headerTitle = document.getElementById("header-title");
-    // console.log(headerTitle);
-    // headerTitle.style.color = "black"; 
-    // let header = document.querySelector("header");
-    // console.log(header);
-    // header.style.borderBottom = "2px solid black";
-    // let addItem = document.querySelector("#add-item");
-    // console.log(addItem);
-    // addItem.style.fontWeight = "bolder";
-    // addItem.style.color = "green";
-    // let items = document.getElementsByClassName("list-group-item");
-    // console.log(items);
-    // items[2].style.backgroundColor = "green";
-    // for(let i=0; i<items.length; i++){
-      // items[i].style.fontWeight = "bold";
-    // }
-    // let li = document.getElementsByTagName("li");
-    // console.log(li);
-    // for(let i=0; i<li.length; i++){
-      // li[i].style.color = "brown";
-    // }
-    let list = document.querySelectorAll("li:nth-child(2)");
-    list[0].style.color = "green";
-    let oddlist = document.querySelectorAll("li:nth-child(odd)");
-    console.log(oddlist);
-    for(let i=0; i<oddlist.length; i++){
-      oddlist[i].style.backgroundColor = "green";
+    let itemList = document.querySelector("#items");
+    // console.log(itemList);
+    // ParentNode
+    // console.log(itemList.parentNode);
+    itemList.parentNode.style.backgroundColor = "#f4f4f4";
+    // ParentElement
+    // console.log(itemList.parentElement);
+    itemList.parentElement.style.backgroundColor = "rgb(169 158 158)";
+    // ChildNode
+    // console.log(itemList.childNodes.length);
+    // Children
+    // console.log(itemList.children);
+    for(let i=0; i<itemList.children.length; i++){
+      // console.log(itemList.children[i])
+      itemList.children[i].style.color = "blue";
     }
+    // FirstChild
+    // console.log(itemList.firstChild);
+    // FirstElementChild
+    // console.log(itemList.firstElementChild);
+    itemList.firstElementChild.textContent = "Hello First";
+    // lastChild
+    // console.log(itemList.lastChild);
+    // lastElementChild
+    // console.log(itemList.lastElementChild);
+    itemList.lastElementChild.textContent = "Hello Last";
+    // console.log(itemList.previousSibling);
+    // console.log(itemList.previousElementSibling);
+    itemList.previousElementSibling.textContent = "items sibling"
+    // console.log(itemList.nextElementSibling);
+    let divEl = document.createElement("div");
+    divEl.className = "hello";
+    divEl.id = "hello-div";
+    divEl.setAttribute("name","div-name");
+    let divtText = document.createTextNode("Hello World");
+    divEl.appendChild(divtText);
+    let h1 = document.querySelector("header h1");
+    let container = document.querySelector("header .container");
+    container.insertBefore(divEl,h1);
+    console.log(divEl);
+    itemList.insertBefore(divEl,itemList.firstElementChild);
   </script>
 </body>
 </html>
