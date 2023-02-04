@@ -37,14 +37,25 @@
             }
             let li = document.createElement("li");
             let dltBtn = document.createElement("button");
+            let editBtn = document.createElement("button");
             dltBtn.textContent = " Delete ";
             dltBtn.classList = "btn btn-secondary";
+            editBtn.textContent = " Edit ";
+            editBtn.classList = "btn btn-info";
             let userDetails = document.createTextNode(user.name+" - "+user.email+" - "+user.phone);
             li.appendChild(userDetails);
             li.appendChild(dltBtn);
+            li.appendChild(editBtn);
             container.appendChild(li);
             localStorage.setItem(user.email,JSON.stringify(user));
             dltBtn.onclick = function(){
+                li.style.display = "none";
+                localStorage.removeItem(user.email);
+            }
+            editBtn.onclick = function(){
+                document.getElementById('fname').value = user.name;
+                document.getElementById('email').value = user.email;
+                document.getElementById('phone').value = user.phone;
                 li.style.display = "none";
                 localStorage.removeItem(user.email);
             }
