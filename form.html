@@ -29,11 +29,16 @@
         submitBtn.addEventListener('click',function(e){
             e.preventDefault();
             console.log(document.getElementById('fname').value);
-            localStorage.setItem(document.getElementById('fname').value,[document.getElementById('email').value,document.getElementById('phone').value]); 
+            // localStorage.setItem(document.getElementById('fname').value,[document.getElementById('email').value,document.getElementById('phone').value]); 
             console.log(document.getElementById('email').value);
             console.log(document.getElementById('phone').value);
+            let user = {
+                name: document.getElementById('fname').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value
+            }
+            localStorage.setItem("user",JSON.stringify(user));
         })
-        localStorage.clear();
     </script>
 </body>
 </html>
