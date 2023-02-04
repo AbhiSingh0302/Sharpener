@@ -36,11 +36,23 @@
                 phone: document.getElementById('phone').value
             }
             let li = document.createElement("li");
+            let dltBtn = document.createElement("button");
+            dltBtn.textContent = " Delete ";
+            dltBtn.classList = "btn btn-secondary";
             let userDetails = document.createTextNode(user.name+" - "+user.email+" - "+user.phone);
             li.appendChild(userDetails);
+            li.appendChild(dltBtn);
             container.appendChild(li);
             localStorage.setItem(user.email,JSON.stringify(user));
+            dltBtn.onclick = function(){
+                li.style.display = "none";
+                localStorage.removeItem(user.email);
+            }
         })
+        // dltBtn.onclick = function(){
+        //     console.log(dltBtn.parentElement);
+            // dltBtn.parentElement.remove();
+        // }
     </script>
 </body>
 </html>
