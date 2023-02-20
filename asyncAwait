@@ -1,0 +1,34 @@
+const blogs =[{title: "blog1"}];
+let time;
+
+const blogUpdate = async (blog) => {
+    const createBlog = new Promise((resolve, reject) => {
+        setTimeout( () => {
+            blogs.push({title: blog});
+            resolve(blogs);
+        }, 3000)
+    }) 
+
+    const deleteBlog = new Promise((resolve,reject)=>{
+        if(blogs.length>0){
+            resolve(blogs.pop());
+        }else{
+            reject("ERROR");
+        }
+    })
+
+    const updateLastUserActivityTime = new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            time = new Date().toLocaleTimeString();
+            resolve(time);
+        },1000)
+    })
+    
+    let [blogCreate,deleted,update] = await Promise.all([createBlog,deleteBlog,updateLastUserActivityTime]);
+    console.log(blogCreate);
+    console.log(deleted);
+    console.log(update);
+    return "Complete";
+}
+blogUpdate("BLOG2")
+.then((a) => console.log(a))
