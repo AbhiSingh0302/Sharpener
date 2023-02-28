@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking</title>
+</head>
+<body>
+    <main>
+        <h1>Admin Page</h1>
+        <form>
+            <input type="number" id="amount" placeholder="Add Amount">
+            <input type="text" id="product" placeholder="Add Product">
+            <select id="product-type" style="padding: 2px;">
+                <option>--Select Category--</option>
+                <option>Groceries</option>
+                <option>Electronics</option>
+                <option>Fashion</option>
+            </select>
+            <input type="button" id="submit" value=" Add ">
+        </form>
+        <h2>Groceries</h2>
+        <ul id="groc"></ul>
+        <h2>Electronics</h2>
+        <ul id="ele"></ul>
+        <h2>Fashion</h2>
+        <ul id="fas"></ul>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script>
+        let amount = document.getElementById("amount");
+        let product= document.getElementById("product");
+        let type = document.getElementById("product-type");
+        let submit = document.getElementById("submit");
+        let ulGroc = document.querySelector("ul#groc");
+        let ulEle = document.querySelector("ul#ele");
+        let ulFas = document.querySelector("ul#fas");
+        let endPoint = '580e10306a27456291c6ed07da8e0fbe';
+        // axios.delete("https://crudcrud.com/api/bd1aae3339a347aca42d607ec7a7e05f/appointments/63f604e21d8b0e03e8141fd7")
+        // .then((res)=>console.log(res))
+        // .catch((err)=>console.log("This is error",err));
+        const StoreInCrud = (e) => {
+            e.preventDefault();
+            let obj = {
+                amount: amount.value,
+                product: product.value,
+                category: type.value
+            }
+            amount.value = "";
+            product.value = "";
+            axios.post("https://crudcrud.com/api/"+endPoint+"/appointments",obj)
+            .then((res)=>{
+                console.log(res.data);
+                showOutput(res.data);
+            })
+            .catch((err)=>console.log("This is error",err));
+        }
+
+        function showOutput(data){
+            let li = document.createElement("li");
+            li.textContent = data.amount+" - "+data.product+" ";
+            // let editBtn = document.createElement("button");
+            // editBtn.textContent = " Edit User ";
+            let deleteBtn = document.createElement("button");
+            deleteBtn.textContent = " Delete Item ";
+            // li.appendChild(editBtn);
+            li.appendChild(deleteBtn);
+            if(data.category == 'Groceries'){
+                ulGroc.appendChild(li);
+            }else if(data.category == 'Electronics'){
+                ulEle.appendChild(li);
+            }else{
+                ulFas.appendChild(li);
+            }
+            // editBtn.onclick = () => {
+            //     amount.value = data.amount;
+            //     product.value = data.product;
+            //     li.remove();
+            //     deleteUser(data._id);
+            // }
+            deleteBtn.onclick = () => {
+                li.remove();
+                deleteUser(data._id);
+            }
+        }
+
+        function deleteUser(id){
+            axios.delete("https://crudcrud.com/api/"+endPoint+"/appointments"+"/"+id)
+            .then((res)=>console.log(res))
+            .catch((err)=>console.log("This is error",err));
+        }
+
+        window.onload = render;
+
+        function render(){
+            axios.get("https://crudcrud.com/api/"+endPoint+"/appointments")
+        .then(res=>{
+            let datas = res.data;
+            for(let i=0; i<datas.length; i++){
+                showOutput(datas[i]);
+            }
+        });
+        }
+
+        submit.addEventListener("click", StoreInCrud)
+    </script>
+</body>
+</html>

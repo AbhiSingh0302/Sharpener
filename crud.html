@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking</title>
+</head>
+<body>
+    <main>
+        <form>
+            <input type="text" id="name">
+            <input type="email" id="email">
+            <input type="button" id="submit" value=" Submit ">
+        </form>
+        <ul></ul>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script>
+        let name = document.getElementById("name");
+        let email = document.getElementById("email");
+        let submit = document.getElementById("submit");
+        let ul = document.querySelector("ul");
+        // axios.delete("https://crudcrud.com/api/bd1aae3339a347aca42d607ec7a7e05f/appointments/63f604e21d8b0e03e8141fd7")
+        // .then((res)=>console.log(res))
+        // .catch((err)=>console.log("This is error",err));
+        const StoreInCrud = (e) => {
+            e.preventDefault();
+            let obj = {
+                name: name.value,
+                email: email.value
+            }
+            name.value = "";
+            email.value = "";
+            axios.post("https://crudcrud.com/api/a4a0658bfb6d439cbb6b8a3a730ca32e/appointments",obj)
+            .then((res)=>{
+                console.log(res.data);
+                showOutput(res.data);
+            })
+            .catch((err)=>console.log("This is error",err));
+        }
+
+        function showOutput(data){
+            let li = document.createElement("li");
+            li.textContent = data.name+" - "+data.email+" ";
+            let editBtn = document.createElement("button");
+            editBtn.textContent = " Edit User ";
+            let deleteBtn = document.createElement("button");
+            deleteBtn.textContent = " Delete User ";
+            li.appendChild(editBtn);
+            li.appendChild(deleteBtn);
+            ul.appendChild(li);
+            editBtn.onclick = () => {
+                name.value = data.name;
+                email.value = data.email;
+                li.remove();
+                deleteUser(data._id);
+            }
+            deleteBtn.onclick = () => {
+                li.remove();
+                deleteUser(data._id);
+            }
+        }
+
+        function deleteUser(id){
+            axios.delete("https://crudcrud.com/api/a4a0658bfb6d439cbb6b8a3a730ca32e/appointments/"+id)
+            .then((res)=>console.log(res))
+            .catch((err)=>console.log("This is error",err));
+        }
+
+        window.onload = render;
+
+        function render(){
+            axios.get("https://crudcrud.com/api/a4a0658bfb6d439cbb6b8a3a730ca32e/appointments")
+        .then(res=>{
+            let datas = res.data;
+            for(let i=0; i<datas.length; i++){
+                showOutput(datas[i]);
+            }
+        });
+        }
+
+        submit.addEventListener("click", StoreInCrud)
+    </script>
+</body>
+</html>
